@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState, useMemo } from 'react';
 import DataTable from './datatable';
 import Pagination from './datatable/pagination';
+import './App.css';
 
 function App() {
   const [data, setData] = useState([]);
@@ -41,8 +42,14 @@ function App() {
   }
   return (
     <div className="App">
-      <div>
-        <input type="text" value={searchValue} onChange={(event) => setSearchValue(event.target.value)}/>
+      <div className="searchWrapper">
+        <input 
+          type="text"
+          className="search"
+          placeholder="Search by name, email or role"
+          value={searchValue}
+          onChange={(event) => setSearchValue(event.target.value)}
+        />
       </div>
       <DataTable value={search(computedData)} onChange={setGridData} data={data} />
       <div>

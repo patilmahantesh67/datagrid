@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import "./database.css";
 export default function Pagination({ total=0, itemsPerPage=10, currentPage=1, onPageChange }) {
 	const [totalPages, setTotalPages] = useState(0);
 
@@ -11,7 +12,8 @@ export default function Pagination({ total=0, itemsPerPage=10, currentPage=1, on
 	const paginationItems = useMemo(() => {
 		const pages = [];
 		for(let i=1; i<=totalPages; i++) {
-			pages.push(<li 
+			pages.push(<li
+				className={(i === currentPage ? 'active ' : '') + 'blocks'}
 				key={i}
 				active={i === currentPage}
 				onClick={() => onPageChange(i)}
@@ -24,10 +26,10 @@ export default function Pagination({ total=0, itemsPerPage=10, currentPage=1, on
 
 	if (totalPages === 0) return null;
 	return (
-		<ul>
-			<button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>Prev</button>
+		<div id="pagination">
+			<button className={(currentPage === 1 ? 'disabled ' : '') + 'blocks'} onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>&laquo;</button>
 			{paginationItems}
-			<button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
-		</ul>
+			<button className={(currentPage === totalPages ? 'disabled ' : '') + 'blocks'} onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>&raquo;</button>
+		</div>
 	)
 }

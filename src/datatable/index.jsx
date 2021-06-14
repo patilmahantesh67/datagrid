@@ -34,7 +34,7 @@ export default function DataTable(props) {
 					<td>{email}</td>
 					<td>{role}</td>
 					<td className='opration'>
-						<button onClick={() => removeData(id)}>Delete</button>
+						<button className="button" onClick={() => removeData(id)}>Delete</button>
 					</td>
 				</tr>
 			)
@@ -51,7 +51,7 @@ export default function DataTable(props) {
 			</tbody>
 		</table>
 		<div>
-			<button onClick={removeSelectedRows}>Delete Selected</button>
+			<button className="button removeSelected" onClick={removeSelectedRows}>Delete Selected</button>
 		</div>
 	</>
 	)

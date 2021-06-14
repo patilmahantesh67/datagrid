@@ -1,0 +1,13 @@
+.App {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.searchWrapper {
+    display: flex;
+}
+.search {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+}
