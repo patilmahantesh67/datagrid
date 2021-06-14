@@ -25,7 +25,7 @@ function App() {
   const computedData = useMemo(() => {
     let tempData = data;
     for(const element of tempData) {
-      element.checkbox = "false";
+      element.checkbox = false;
     }
     setTotalItems(tempData.length);
     return tempData.slice((currentPage - 1) * ITEMS_PER_PAGE, (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE)
