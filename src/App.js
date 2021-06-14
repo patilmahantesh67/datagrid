@@ -14,7 +14,7 @@ function App() {
       const apiData = await axios.get(
         'https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json'
       );
-      setData(apiData.data);
+      setGridData(apiData.data);
     } catch (error) {
       console.log(error);
     }
@@ -24,6 +24,9 @@ function App() {
   }, []);
   const computedData = useMemo(() => {
     let tempData = data;
+    for(const element of tempData) {
+      element.checkbox = "false";
+    }
     setTotalItems(tempData.length);
     return tempData.slice((currentPage - 1) * ITEMS_PER_PAGE, (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE)
   }, [data, currentPage]);
@@ -33,12 +36,15 @@ function App() {
       columns.some((column) => row[column].toString().toLowerCase().indexOf(searchValue.toLowerCase()) > -1)
     );
   }
+  function setGridData(newValue) {
+    setData(newValue);
+  }
   return (
     <div className="App">
       <div>
         <input type="text" value={searchValue} onChange={(event) => setSearchValue(event.target.value)}/>
       </div>
-      <DataTable data={search(computedData)} />
+      <DataTable value={search(computedData)} onChange={setGridData} data={data} />
       <div>
         <Pagination 
           total={totalItems}
