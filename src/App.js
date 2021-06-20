@@ -51,7 +51,7 @@ function App() {
           onChange={(event) => setSearchValue(event.target.value)}
         />
       </div>
-      <DataTable value={search(computedData)} onChange={setGridData} data={data} />
+      <DataTable gridData={search(computedData)} onChange={setGridData} totalData={data} />
       <div>
         <Pagination 
           total={totalItems}
