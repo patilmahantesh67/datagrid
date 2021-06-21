@@ -45,7 +45,8 @@ export default function DataTable(props) {
 			return (
 				<tr key={id}>
 					<td>
-						<input 
+						<input
+							className="checkbox"
 							type="checkbox"
 							value={id}
 							checked = {checkedArray ? checkedArray[id] : false}
@@ -56,7 +57,7 @@ export default function DataTable(props) {
 					<td>{email}</td>
 					<td>{role}</td>
 					<td className='opration'>
-						<button className="button" onClick={() => removeData(id)}>Delete</button>
+						<button className="button" data-testid="delete-row" onClick={() => removeData(id)}>Delete</button>
 					</td>
 				</tr>
 			)
@@ -82,7 +83,7 @@ export default function DataTable(props) {
 			</tbody>
 		</table>
 		<div>
-			<button className="button removeSelected" onClick={removeSelectedRows}>Delete Selected</button>
+			<button className="button removeSelected" data-testid="delete-all-rows" onClick={removeSelectedRows}>Delete Selected</button>
 		</div>
 	</>
 	)
