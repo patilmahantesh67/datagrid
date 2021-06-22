@@ -345,24 +345,29 @@ const totalData = [
       "email": "anirudhb@mailinator.com",
       "role": "member"
   }
-]
-const dataTable = render(<DataTable 
-  gridData = {gridData}
-  totalData={totalData}
-/>);
-
-// test("delete row button", () => {
-//   const { getAllByTestId } = dataTable;
-//   const deleteRow = getAllByTestId('delete-row');
-
-//   expect(deleteRow.textContent).toBe("Delete");
-// });
+];
 
 test("delete all rows button", () => {
-  const { getByTestId } = dataTable;
+  const renderedDataTable = render(<DataTable 
+    gridData = {gridData}
+    totalData={totalData}
+  />);
+  const { getByTestId } = renderedDataTable;
+  console.log(renderedDataTable);
   const deleteRow = getByTestId('delete-all-rows');
-
+  
   expect(deleteRow.textContent).toBe("Delete Selected");
+});
+
+test("delete row button", () => {
+  const renderedDataTable = render(<DataTable 
+    gridData = {gridData}
+    totalData={totalData}
+  />);
+  const { getByTestId } = renderedDataTable;
+  const deleteRow = getByTestId('delete-row-1');
+
+  expect(deleteRow.textContent).toBe("Delete");
 });
 
 describe('DataTable Component', () => {
@@ -379,19 +384,6 @@ describe('DataTable Component', () => {
     wrapper.find('.removeSelected').simulate('click');
   })
 });
-
-// it("test delete", (done) => {
-// 	const value = "1";
-// 	function removeData(value) {
-// 		expect(value).toEqual("1");
-//     done();
-//   }
-// 	const { getByText } = render(
-//     <button className="button" data-testid="removeButton" onClick={() => removeData(value)}>Delete</button>
-//   );
-//   const node = getByText("Delete");
-//   fireEvent.click(node);
-// });
 
 afterEach(cleanup);
   

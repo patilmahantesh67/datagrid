@@ -57,7 +57,7 @@ export default function DataTable(props) {
 					<td>{email}</td>
 					<td>{role}</td>
 					<td className='opration'>
-						<button className="button" data-testid="delete-row" onClick={() => removeData(id)}>Delete</button>
+						<button className="button" data-testid={`delete-row-${id}`} onClick={() => removeData(id)}>Delete</button>
 					</td>
 				</tr>
 			)
