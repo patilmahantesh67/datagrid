@@ -407,7 +407,7 @@ describe('DataTable Component', () => {
     wrapper.find('.removeSelected').simulate('click');
     expect(onGridDataChange).toBeCalledTimes(1);
   });
-  it('expected first 10 checkbox to be true',() => {
+  it('expected first 4 checkbox to be true',() => {
     wrapper.find('.checkbox-1').simulate('click');
     wrapper.find('.checkbox-2').simulate('click');
     wrapper.find('.checkbox-3').simulate('click');
