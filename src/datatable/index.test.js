@@ -391,10 +391,7 @@ describe('DataTable Component', () => {
   it('renders', () => {
     expect(wrapper).not.toBeNull();
   });
-  it("expects", () => {
-    wrapper.find('.removeSelected').simulate('click');
-  });
-  it("expects grid data to be called none", () => {
+  it("expects onGridDataChange to be called none", () => {
     expect(onGridDataChange).toBeCalledTimes(0);
   });
   it('expects grid data to have length 10', () => {
