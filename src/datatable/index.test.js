@@ -1,7 +1,7 @@
 import React from "react";
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
-import DataTable from './index.jsx';
+import DataTable, { removeData } from './index.jsx';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
@@ -11,61 +11,71 @@ const gridData = [
     "id": "1",
     "name": "Aaron Miles",
     "email": "aaron@mailinator.com",
-    "role": "member"
+    "role": "member",
+    "checked": "true"
   },
   {
       "id": "2",
       "name": "Aishwarya Naik",
       "email": "aishwarya@mailinator.com",
-      "role": "member"
+      "role": "member",
+      "checked": "false"
   },
   {
       "id": "3",
       "name": "Arvind Kumar",
       "email": "arvind@mailinator.com",
-      "role": "admin"
+      "role": "admin",
+      "checked": "false"
   },
   {
       "id": "4",
       "name": "Caterina Binotto",
       "email": "caterina@mailinator.com",
-      "role": "member"
+      "role": "member",
+      "checked": "false"
   },
   {
       "id": "5",
       "name": "Chetan Kumar",
       "email": "chetan@mailinator.com",
-      "role": "member"
+      "role": "member",
+      "checked": "false"
   },
   {
       "id": "6",
       "name": "Jim McClain",
       "email": "jim@mailinator.com",
-      "role": "member"
+      "role": "member",
+      "checked": "false"
   },
   {
       "id": "7",
       "name": "Mahaveer Singh",
       "email": "mahaveer@mailinator.com",
-      "role": "member"
+      "role": "member",
+      "checked": "false"
   },
   {
       "id": "8",
       "name": "Rahul Jain",
       "email": "rahul@mailinator.com",
-      "role": "admin"
+      "role": "admin",
+      "checked": "false"
   },
   {
       "id": "9",
       "name": "Rizan Khan",
       "email": "rizan@mailinator.com",
-      "role": "member"
+      "role": "member",
+      "checked": "false"
   },
   {
       "id": "10",
       "name": "Sarah Potter",
       "email": "sarah@mailinator.com",
-      "role": "admin"
+      "role": "admin",
+      "checked": "false"
   }
 ];
 const totalData = [
@@ -353,7 +363,6 @@ test("delete all rows button", () => {
     totalData={totalData}
   />);
   const { getByTestId } = renderedDataTable;
-  console.log(renderedDataTable);
   const deleteRow = getByTestId('delete-all-rows');
   
   expect(deleteRow.textContent).toBe("Delete Selected");
@@ -368,21 +377,44 @@ test("delete row button", () => {
   const deleteRow = getByTestId('delete-row-1');
 
   expect(deleteRow.textContent).toBe("Delete");
+  // fireEvent.click(deleteRow);
 });
 
 describe('DataTable Component', () => {
   const onGridDataChange = jest.fn();
+  const filterCheckboxSelected = jest.fn();
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<DataTable gridData = {gridData}
-      totalData={totalData} onChange={onGridDataChange} />)
-  })
+        totalData={totalData} onChange={onGridDataChange} />)
+  });
   it('renders', () => {
     expect(wrapper).not.toBeNull();
   });
   it("expects", () => {
     wrapper.find('.removeSelected').simulate('click');
-  })
+  });
+  it("expects grid data to be called none", () => {
+    expect(onGridDataChange).toBeCalledTimes(0);
+  });
+  it('expects grid data to have length 10', () => {
+    expect(gridData).toHaveLength(10);
+  });
+  it('expects totalData to have length 46', () => {
+    expect(totalData).toHaveLength(46);
+  });
+  it('expected onGridDataChange to be called once',() => {
+    wrapper.find('.removeSelected').simulate('click');
+    expect(onGridDataChange).toBeCalledTimes(1);
+  });
+  it('expected first 10 checkbox to be true',() => {
+    wrapper.find('.checkbox-1').simulate('click');
+    wrapper.find('.checkbox-2').simulate('click');
+    wrapper.find('.checkbox-3').simulate('click');
+    wrapper.find('.checkbox-4').simulate('click');
+    // expect(filterCheckboxSelected).toHaveLength(9);
+    // expect(('.checkbox-1')).toBe(true);
+  });
 });
 
 afterEach(cleanup);

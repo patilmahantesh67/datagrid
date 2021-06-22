@@ -35,10 +35,13 @@ export default function DataTable(props) {
 		setAllChecked(e.target.checked);
 		setCheckedArray({ ...checkedArray, ...tempCheckboxArray});
 	}
+	const filterCheckboxSelected = (totalData) => {
+		return totalData.filter(value => value.checkbox === false);
+	};
 	const removeSelectedRows = () => {
-		let filteredArray = props.totalData.filter(value => value.checkbox === false);
+		let filteredrray = filterCheckboxSelected(props.totalData);
 		setAllChecked(false);
-		props.onChange(filteredArray);
+		props.onChange(filteredrray);
 	}
 	const renderBody = () => {
 		return props.gridData && props.gridData.map(({ id, name, email, role, checkbox }) => {
@@ -46,7 +49,7 @@ export default function DataTable(props) {
 				<tr key={id}>
 					<td>
 						<input
-							className="checkbox"
+							className={`checkbox-${id}`}
 							type="checkbox"
 							value={id}
 							checked = {checkedArray ? checkedArray[id] : false}
